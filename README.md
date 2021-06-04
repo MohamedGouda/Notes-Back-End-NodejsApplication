@@ -30,4 +30,4 @@ to run this App kinldy flow the below steps
             "craetedBy":"Me"
           }
      
-    - - http://localhost:3000/api/notes/delete and send the id in the body as a JSON Object {"id":001} 
+    - - http://localhost:3000/api/notes/delete/002  002 is the id of the note that will be deleted 
