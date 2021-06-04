@@ -36,10 +36,11 @@ exports.editNote = function(req , res){
 }
 
 exports.deleteNote = function(req , res){
-    if(!req.body.id)
+    var noteId = req.body.noteId;
+    if(!noteId)
     return  res.status(500).send({error:"some required data are not avialable"});
 
-    memory.store.removeItem(req.body.id);
+    memory.store.removeItem(noteId);
 
     return res.status(200).send("Note Deleted Successfully");
 }
