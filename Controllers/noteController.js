@@ -28,10 +28,16 @@ exports.editNote = function(req , res){
     if(!req.body.title || !req.body.content || !req.body.id)
       return  res.status(500).send({error:"some required data are not avialable"});
 
-    var Note = new noteModel.Note(req.body.id  , req.body.title , req.body.content , "Me" , new Date());
-    memory.store.setItem(req.body.id , Note);
-    return res.status(200).send("Note Updated Successfully");
-
+    var noteItem = memory.store.getItem(req.body.id);
+    
+    if(!noteItem)
+    {
+        var Note = new noteModel.Note(req.body.id  , req.body.title , req.body.content , "Me" , new Date());
+        memory.store.setItem(req.body.id , Note);
+        return res.status(200).send("Note Updated Successfully");
+    }
+    else
+       return  res.status(400).send({error:"there is no Note with this Id"});
 
 }
 
@@ -40,7 +46,14 @@ exports.deleteNote = function(req , res){
     if(!noteId)
     return  res.status(500).send({error:"some required data are not avialable"});
 
-    memory.store.removeItem(noteId);
-
-    return res.status(200).send("Note Deleted Successfully");
+    var noteItem = memory.store.getItem(noteId);
+    
+    if(!noteItem)
+    {
+        memory.store.removeItem(noteId);
+        return res.status(200).send("Note Deleted Successfully");
+    }
+    else
+        return  res.status(400).send({error:"there is no Note with this Id"});
+    
 }
