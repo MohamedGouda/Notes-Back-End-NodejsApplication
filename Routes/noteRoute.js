@@ -10,6 +10,6 @@ router.post('/notes/save' , note.saveNote);
 
 router.post('/notes/edit' , note.editNote);
 
-router.delete('/notes/delete' , note.deleteNote);
+router.delete('/notes/delete/:noteId' , note.deleteNote);
 
 module.exports= router;
